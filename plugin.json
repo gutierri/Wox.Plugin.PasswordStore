@@ -1,0 +1,12 @@
+{
+    "ID":"8839242a-bea2-11e7-abc4-cec278b6b50a",
+    "ActionKeyword":"pass",
+    "Name":"Password Storage",
+    "Description":"Hello World",
+    "Author":"happlebao",
+    "Version":"1.0",
+    "Language":"python",
+    "Website":"https://github.com/Wox-launche/Wox",
+    "IcoPath":"Images\\app.png",
+    "ExecuteFileName":"main.py"
+}
