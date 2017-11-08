@@ -4,6 +4,7 @@ from wox import Wox
 import os
 import re
 import itertools
+import subprocess
 
 
 class PasswordStore(Wox):
@@ -56,18 +57,18 @@ class PasswordStore(Wox):
                     "JsonRPCAction": {
                         "method": "show",
                         "parameters": [i],
-                        "dontHideAfterAction": True
+                        "dontHideAfterAction": False
                     }
                 })
 
         return results
 
-    def show(self, i):
-        import subprocess
-        proc = subprocess.Popen("powershell.exe Start-Process -FilePath 'C:/Program Files (x86)/GnuPG/bin/gpg.exe' -ArgumentList '-d {}' -Wait -NoNewWindow".format(i), shell=True, stdout=subprocess.PIPE).communicate()[0]
-        _password = proc.decode('utf-8').split('\n')[0]
-        os.system('echo {} | clip'.format(_password))
-        return True
+    def show(self, _f):
+        command = "gpg --decrypt {}".format(os.path.join("C:", _f))
+        with subprocess.Popen(command, stdout=subprocess.PIPE) as proc:
+            cmd_out = proc.stdout.read().split()[0]
+            subprocess.run("echo {} | clip.exe".format(cmd_out.decode("utf-8")),
+                           shell=True)
 
 if __name__ == "__main__":
     PasswordStore()
