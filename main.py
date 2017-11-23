@@ -65,7 +65,7 @@ class PasswordStore(Wox):
 
     def show(self, _f):
         command = "gpg --decrypt {}".format(os.path.join("C:", _f))
-        with subprocess.Popen(command, stdout=subprocess.PIPE) as proc:
+        with subprocess.Popen(command, stdout=subprocess.PIPE, shell=True) as proc:
             cmd_out = proc.stdout.read().split()[0]
             subprocess.run("echo {} | clip.exe".format(cmd_out.decode("utf-8")),
                            shell=True)
